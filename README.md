@@ -28,6 +28,13 @@
 
 # gemを作ろう
 
+# Gitの初期設定
+
+```sh
+git config --global user.name yourname
+git config --global user.email youremail
+```
+
 # gemプロジェクトの初期化
 
 ```sh

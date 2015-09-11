@@ -26,6 +26,20 @@
 - YARDでドキュメント
 - E2Eテスト
 
+# サンプルコード
+
+<ul>
+<li>[kaosf/20150911-oss-gem](https://github.com/kaosf/20150911-oss-gem)</li>
+<li>[kaosf/20150911-oss-test](https://github.com/kaosf/20150911-oss-test)</li>
+<li>[kaosf/20150911-oss-yard](https://github.com/kaosf/20150911-oss-yard)</li>
+<ul>
+
+```sh
+git clone https://github.com/kaosf/20150911-oss-gem
+git clone https://github.com/kaosf/20150911-oss-test
+git clone https://github.com/kaosf/20150911-oss-yard
+```
+
 # gemを作ろう
 
 # Gitの初期設定

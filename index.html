@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="ka (kaosfield)" />
+  <meta name="date" content="2015-09-11" />
+  <title>OSS普及協議会Ruby勉強会3</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">OSS普及協議会Ruby勉強会3</h1>
+  <p class="author">
+ka (<a href="http://www.kaosfield.net">kaosfield</a>)
+  </p>
+  <p class="date">2015-09-11</p>
+</div>
+<div id="はじめに" class="slide section level1">
+<h1>はじめに</h1>
+<p>このスライドは公開されています</p>
+<p>このスライドのリポジトリは<a href="https://github.com/kaosf/20150911-oss-slide" class="uri">https://github.com/kaosf/20150911-oss-slide</a>にあります</p>
+<p>間違いなどを見つけた場合は</p>
+<ul>
+<li>
+メールで連絡
+</li>
+<li>
+Issueで報告
+</li>
+<li>
+Pull Requestで修正案を提出
+</li>
+</ul>
+<p>などしていただけるとありがたいです (※下に行くほど嬉しいです)</p>
+</div>
+<div id="本日のお題" class="slide section level1">
+<h1>本日のお題</h1>
+<ul class="incremental">
+<li>gemを作ろう</li>
+<li>RSpecでテスト</li>
+<li>test-unitでテスト</li>
+<li>YARDでドキュメント</li>
+<li>E2Eテスト</li>
+</ul>
+</div>
+<div id="gemを作ろう" class="slide section level1">
+<h1>gemを作ろう</h1>
+</div>
+<div id="gemプロジェクトの初期化" class="slide section level1">
+<h1>gemプロジェクトの初期化</h1>
+<pre class="sh"><code>bundle gem mygem</code></pre>
+<p>MITライセンスにするとかCode of Conduct宣言を含めるとか聞かれるかも？</p>
+<p>とりあえずYESでいいです</p>
+</div>
+<div id="皆でお互いにgemを使ってみよう" class="slide section level1">
+<h1>皆でお互いにgemを使ってみよう</h1>
+<p>皆にカードを配ります</p>
+<p>01 02 ... という数字が書いてます</p>
+<p>各々の作るgemの名前が競合しないようにしましょう</p>
+<pre class="sh"><code>bundle gem tross01
+bundle gem tross02
+# ...</code></pre>
+</div>
+<div id="trossとは" class="slide section level1">
+<h1>trossとは</h1>
+<blockquote>
+<p>tross</p>
+<p>【動詞】 【他動詞】</p>
+<p>1</p>
+<p>〈町・コミュニティなどを〉発展させる，〈人を〉育てる.</p>
+<p>用例 tross my home twon ふるさとを発展させる.</p>
+</blockquote>
+<p>引用: 英和辞典Woblie</p>
+</div>
+<div id="ウソです" class="slide section level1">
+<h1><span style="color:red">ウソ</span>です</h1>
+<p>そんな英単語無いです(辞書を引かないように)</p>
+<p><span style="color:red">t</span>okushima.<span style="color:red">r</span>b と とくしま<span style="color:red">OSS</span>普及協議会 の頭文字をとっただけ</p>
+</div>
+<div id="todoを消そう" class="slide section level1">
+<h1>TODOを消そう</h1>
+<p>以下 <code>tross00</code> を作ったと仮定して話を進めます</p>
+<p><code>tross00.gemspec</code>内の</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">  spec.summary       =<span class="ot"> %q{</span><span class="st">TODO: Write a short summary, because Rubygems requires one.</span><span class="ot">}</span>
+  spec.description   =<span class="ot"> %q{</span><span class="st">TODO: Write a longer description or delete this line.</span><span class="ot">}</span>
+  spec.homepage      = <span class="st">&quot;TODO: Put your gem&#39;s website or public repo URL here.&quot;</span></code></pre></div>
+<p>を書き換える</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">  spec.summary       =<span class="ot"> %q{</span><span class="st">Tross</span><span class="ot">}</span>
+  spec.description   =<span class="ot"> %q{</span><span class="st">My awesome Tross library</span><span class="ot">}</span>
+  spec.homepage      = <span class="st">&quot;http://example.com/tross00&quot;</span></code></pre></div>
+<p>適当でいい</p>
+</div>
+<div id="次" class="slide section level1">
+<h1>次</h1>
+<p><code>tross00.gemspec</code>内の</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">  <span class="co"># Prevent pushing this gem to RubyGems.org by setting &#39;allowed_push_host&#39;, or</span>
+  <span class="co"># delete this section to allow pushing this gem to any host.</span>
+  <span class="kw">if</span> spec.respond_to?(<span class="st">:metadata</span>)
+    spec.metadata[<span class="st">&#39;allowed_push_host&#39;</span>] = <span class="st">&quot;TODO: Set to &#39;http://mygemserver.com&#39;&quot;</span>
+  <span class="kw">else</span>
+    raise <span class="st">&quot;RubyGems 2.0 or newer is required to protect against public gem pushes.&quot;</span>
+  <span class="kw">end</span></code></pre></div>
+<p>を消す</p>
+<p>安全のために残しておいても良いけど正しくTODOの部分を書き換えるように</p>
+<p>どう書けば正しいのかは後の方で説明します</p>
+</div>
+<div id="何かを実装する" class="slide section level1">
+<h1>何かを実装する</h1>
+<p><code>lib/tross00.rb</code>に何か作ってみよう</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&quot;tross00/version&quot;</span>
+
+<span class="kw">module</span> <span class="dt">Tross00</span>
+  <span class="co"># Your code goes here...</span>
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="例" class="slide section level1">
+<h1>例</h1>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&quot;tross00/version&quot;</span>
+
+<span class="kw">module</span> <span class="dt">Tross00</span>
+  <span class="kw">def</span> <span class="dv">self</span>.f x
+    x + <span class="dv">1</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="gemとしてビルドする" class="slide section level1">
+<h1>gemとしてビルドする</h1>
+<p>まずはコミット (コミットコメントは適当で良い)</p>
+<pre class="sh"><code>git add .
+git commit -m &quot;Initial commit&quot;</code></pre>
+<p>次に</p>
+<pre class="sh"><code>rake build</code></pre>
+<p>これで <code>pkg/tross00-0.1.0.gem</code> が作らる</p>
+</div>
+<div id="gemサーバに上げる" class="slide section level1">
+<h1>gemサーバに上げる</h1>
+<p>本当はここでRubygems.orgにユーザ登録をして</p>
+<pre class="sh"><code>rake release</code></pre>
+<p>をする</p>
+<p>こうすれば全世界にgemが公開される</p>
+<p>今回はあまり無益過ぎるこんなライブラリを公開してもしょうがないので</p>
+<p>geminaboxを使ってプライベートサーバにアップするようにする</p>
+</div>
+<div id="サーバを立ててある" class="slide section level1">
+<h1>サーバを立ててある</h1>
+<p>URL: <code>http://x.y.z.w:9292</code></p>
+<p>ブラウザでアクセスしてみると良い</p>
+<p>※当日に<code>x.y.z.w</code>の部分は会場で伝えます</p>
+<p>※イベント終了後にサーバは消します</p>
+<p>※後からスライドを見てる人は <a href="http://guides.rubygems.org/run-your-own-gem-server/">ここ</a> の <strong>RUNNING GEM IN A BOX</strong> を参考にして自分でサーバを立てよう</p>
+</div>
+<div id="private-gemサーバに上げる" class="slide section level1">
+<h1>private gemサーバに上げる</h1>
+<pre class="sh"><code>gem install geminabox
+rbenv rehash # rbenvの人限定
+
+gem inabox pkg/tross00-0.1.0.gem</code></pre>
+<p>サーバのホスト名を聞かれるので</p>
+<p><code>http://x.y.z.w:9292</code></p>
+<p>と入力してやる</p>
+<p>その設定は <code>~/.gem/geminabox</code> に記憶されるのでミスったらここを書き換え</p>
+</div>
+<div id="作られたgemを使う" class="slide section level1">
+<h1>作られたgemを使う</h1>
+<p><code>Gemfile</code>の一行目は通常</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">source <span class="st">&#39;https://rubygems.org&#39;</span></code></pre></div>
+<p>だが今回は以下のように変更</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">source <span class="st">&#39;http://x.y.z.w:9292&#39;</span></code></pre></div>
+</div>
+<div id="gemfile" class="slide section level1">
+<h1>Gemfile</h1>
+<p>Gemfileを作って</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">source <span class="st">&#39;http://x.y.z.w:9292&#39;</span>
+
+gem <span class="st">&#39;tross00&#39;</span>, <span class="st">&#39;0.1.0&#39;</span></code></pre></div>
+<p>以下を忘れずに</p>
+<pre class="sh"><code>bundle install</code></pre>
+</div>
+<div id="使ってみる" class="slide section level1">
+<h1>使ってみる</h1>
+<p><code>a.rb</code>でも作って</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;tross00&#39;</span>
+
+p <span class="dt">Tross00</span>.f <span class="dv">1</span></code></pre></div>
+<p>ターミナルから実行</p>
+<pre class="sh"><code>ruby a.rb #=&gt; 2</code></pre>
+</div>
+<div id="時間があったら" class="slide section level1">
+<h1>時間があったら</h1>
+<p>自分以外の<code>trossXX</code>を使ってみよう</p>
+<p>他にも好きな名前のgemを作ってアップしてみよう</p>
+<p>Rubygems.orgにユーザ登録してみよう</p>
+<p>自分で geminabox のサーバを動かしてみよう</p>
+</div>
+<div id="rspecでテスト" class="slide section level1">
+<h1>RSpecでテスト</h1>
+<p>適当なディレクトリを作る</p>
+<pre class="sh"><code>mkdir sugoiprogram
+cd sugoiprogram</code></pre>
+<p><code>lib</code>ディレクトリと<code>spec</code>ディレクトリを作る</p>
+<pre class="sh"><code>mkdir lib
+mkdir spec</code></pre>
+</div>
+<div id="ライブラリコードを用意" class="slide section level1">
+<h1>ライブラリコードを用意</h1>
+<p><code>lib/a.rb</code>を用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> f x, y
+  x + y
+<span class="kw">end</span>
+
+<span class="kw">def</span> g x, y
+  x * y
+<span class="kw">end</span></code></pre></div>
+<p>これは凄いプログラムのとんでもなく複雑な実装なのでテストコードを書いて動作を検証せねばならない！</p>
+</div>
+<div id="テストを用意" class="slide section level1">
+<h1>テストを用意</h1>
+<p><code>spec/a_spec.rb</code>を用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;rspec&#39;</span>
+require <span class="st">&#39;./lib/a&#39;</span>
+
+describe <span class="st">&quot;a&quot;</span> <span class="kw">do</span>
+  describe <span class="st">&quot;f&quot;</span> <span class="kw">do</span>
+    it <span class="st">&quot;is a sum of x and y&quot;</span> <span class="kw">do</span>
+      expect(f <span class="dv">1</span>, <span class="dv">2</span>).to eq <span class="dv">3</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+
+  describe <span class="st">&quot;g&quot;</span> <span class="kw">do</span>
+    it <span class="st">&quot;is a product of x and y&quot;</span> <span class="kw">do</span>
+      expect(g <span class="dv">1</span>, <span class="dv">2</span>).to eq <span class="dv">2</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="rspecをインストール" class="slide section level1">
+<h1>RSpecをインストール</h1>
+<pre class="sh"><code>gem install rspec
+rbenv rehash # rbenv の人</code></pre>
+</div>
+<div id="テスト実行" class="slide section level1">
+<h1>テスト実行</h1>
+<pre class="sh"><code>rspec spec/a_spec.rb</code></pre>
+<pre><code>..
+
+Finished in 0.0025 seconds (files took 0.24965 seconds to load)
+2 examples, 0 failures</code></pre>
+</div>
+<div id="section" class="slide section level1">
+<h1></h1>
+<p>ね？簡単でしょう？</p>
+</div>
+<div id="色を付ける" class="slide section level1">
+<h1>色を付ける</h1>
+<p><code>.rspec</code>というファイルを以下の内容で用意する</p>
+<pre><code>--color</code></pre>
+<p>もしくは実行時に<code>--color</code>というオプションを渡す</p>
+<pre class="sh"><code>rspec --color spec/*_spec.rb</code></pre>
+</div>
+<div id="rake-taskとしてテスト実行出来るようにする" class="slide section level1">
+<h1>rake taskとしてテスト実行出来るようにする</h1>
+<p>Rakefileを用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;rspec/core/rake_task&#39;</span>
+
+<span class="dt">RSpec</span>::<span class="dt">Core</span>::<span class="dt">RakeTask</span>.new(<span class="st">:spec</span>)
+
+task <span class="st">default: :spec</span>
+task test: <span class="st">:spec</span></code></pre></div>
+</div>
+<div id="rake-taskとしてテスト実行出来るようにする-1" class="slide section level1">
+<h1>rake taskとしてテスト実行出来るようにする</h1>
+<p>これで</p>
+<pre class="sh"><code>rake</code></pre>
+<p>ないし</p>
+<pre class="sh"><code>rake test</code></pre>
+<p>でテストが走る</p>
+</div>
+<div id="コードの読み方" class="slide section level1">
+<h1>コードの読み方</h1>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">describe <span class="st">&quot;a&quot;</span> <span class="kw">do</span>                 <span class="co"># &quot;a&quot;について</span>
+  describe <span class="st">&quot;f&quot;</span> <span class="kw">do</span>               <span class="co"># &quot;f&quot;について</span>
+    it <span class="st">&quot;is a sum of x and y&quot;</span> <span class="kw">do</span> <span class="co"># それはxとyの和なんやで</span>
+      expect(<span class="st">&quot;実際の値&quot;</span>).to eq <span class="st">&quot;期待する値&quot;</span>
+                                <span class="co"># &quot;実際の値&quot;は&quot;期待する値&quot;</span>
+                                <span class="co"># とequalであると期待されるんやで</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="test-unitでテスト" class="slide section level1">
+<h1>test-unitでテスト</h1>
+<p>適当なディレクトリを作る</p>
+<pre class="sh"><code>mkdir yabaiprogram
+cd yabaiprogram</code></pre>
+<p><code>lib</code>ディレクトリと<code>test</code>ディレクトリを作る</p>
+<pre class="sh"><code>mkdir lib
+mkdir test</code></pre>
+</div>
+<div id="ライブラリコードを用意-1" class="slide section level1">
+<h1>ライブラリコードを用意</h1>
+<p><code>lib/a.rb</code>を用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> f x, y
+  x - y
+<span class="kw">end</span>
+
+<span class="kw">def</span> g x, y
+  x / y
+<span class="kw">end</span></code></pre></div>
+<p>これはヤバいプログラムの果てしなく複雑な実装なのでテストコードを書いて動作を検証せねばならない！</p>
+</div>
+<div id="テストを用意-1" class="slide section level1">
+<h1>テストを用意</h1>
+<p><code>test/test_a.rb</code>を用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&#39;test-unit&#39;</span>
+require <span class="st">&#39;./lib/a&#39;</span>
+
+<span class="kw">class</span> <span class="dt">TestA</span> &lt; <span class="dt">Test</span>::<span class="dt">Unit</span>::<span class="dt">TestCase</span>
+  <span class="kw">def</span> test_f
+    assert f(<span class="dv">2</span>, <span class="dv">1</span>) == <span class="dv">1</span>
+  <span class="kw">end</span>
+
+  <span class="kw">def</span> test_g
+    assert g(<span class="dv">4</span>, <span class="dv">2</span>) == <span class="dv">2</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="テスト実行-1" class="slide section level1">
+<h1>テスト実行</h1>
+<pre class="sh"><code>ruby test/test_a.rb</code></pre>
+<pre><code>Loaded suite test/test_a
+Started
+..
+
+Finished in 0.001472061 seconds.
+-------------------------------------------------------------------------------------------------
+2 tests, 2 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+100% passed
+-------------------------------------------------------------------------------------------------
+1358.64 tests/s, 1358.64 assertions/s</code></pre>
+</div>
+<div id="rake-taskとしてテスト実行出来るようにする-2" class="slide section level1">
+<h1>rake taskとしてテスト実行出来るようにする</h1>
+<p>Rakefileを用意する</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">require <span class="st">&quot;rake/testtask&quot;</span>
+
+<span class="dt">Rake</span>::<span class="dt">TestTask</span>.new <span class="kw">do</span> |t|
+  t.libs &lt;&lt; <span class="st">&quot;test&quot;</span>
+  t.test_files = <span class="dt">Dir</span>[<span class="st">&quot;test/**/test_*.rb&quot;</span>]
+  t.verbose = <span class="dv">true</span>
+<span class="kw">end</span>
+
+task <span class="st">default: :test</span></code></pre></div>
+<p>参考: <a href="http://docs.ruby-lang.org/ja/2.2.0/class/Rake=3a=3aTestTask.html">class Rake::TestTask (Ruby 2.2.0)</a></p>
+</div>
+<div id="rake-taskとしてテスト実行出来るようにする-3" class="slide section level1">
+<h1>rake taskとしてテスト実行出来るようにする</h1>
+<p>これでRSpecのときと同様</p>
+<pre class="sh"><code>rake</code></pre>
+<p>ないし</p>
+<pre class="sh"><code>rake test</code></pre>
+<p>でテストが走る</p>
+</div>
+<div id="power_assertこそパワー" class="slide section level1">
+<h1>power_assertこそパワー</h1>
+<p><code>test/test_a.rb</code>に以下のテストを追加してみる</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">  <span class="kw">def</span> test_power_assert
+    assert { g(f(<span class="dv">14</span>, <span class="dv">2</span>), <span class="dv">4</span>) == <span class="fl">3.14</span>.to_i + <span class="fl">0.14</span> }
+  <span class="kw">end</span></code></pre></div>
+<p><strong>ブロックの評価結果がtrueになることをassert</strong> …というノリで読めば良い</p>
+<p>テストを走らせてみる</p>
+<pre class="sh"><code>rake</code></pre>
+</div>
+<div id="見よこの美しいエラー表示を" class="slide section level1">
+<h1>見よこの美しいエラー表示を</h1>
+<pre><code>Failure:
+      assert { g(f(14, 2), 4) == 3.14.to_i + 0.14 }
+               | |            |       |    |
+               | |            |       |    3.14
+               | |            |       3
+               | |            false
+               | 12
+               3
+test_power_assert(TestA)
+/home/username/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/power_as(略)
+test/test_a.rb:14:in `test_power_assert&#39;
+     11:   end
+     12: 
+     13:   def test_power_assert
+  =&gt; 14:     assert { g(f(14, 2), 4) == 3.14.to_i + 0.14 }
+     15:   end
+     16: end</code></pre>
+</div>
+<div id="yardでドキュメント作成" class="slide section level1">
+<h1>YARDでドキュメント作成</h1>
+<p>適当にプログラムを用意する</p>
+<p>とりあえず例によって <code>a.rb</code> とする</p>
+<pre><code>def f x, y
+  x - y
+end
+
+def g x, y
+  raise ZeroDivisionError.new if y == 0
+  x / y
+end</code></pre>
+</div>
+<div id="ドキュメントを書く" class="slide section level1">
+<h1>ドキュメントを書く</h1>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Calculate a difference of 2 arguments.</span>
+<span class="co">#</span>
+<span class="co"># @return [Integer] Difference of x and y</span>
+<span class="co"># @param [Integer] x 1st argument</span>
+<span class="co"># @param [Integer] y 2nd argument</span>
+<span class="kw">def</span> f x, y
+  x - y
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="ドキュメントを書く-1" class="slide section level1">
+<h1>ドキュメントを書く</h1>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Calculate a quotient of 2 arguments.</span>
+<span class="co">#</span>
+<span class="co"># @return [Integer] Quotient of x and y</span>
+<span class="co"># @param [Integer] x 1st argument</span>
+<span class="co"># @param [Integer] y 2nd argument</span>
+<span class="co"># @raise [ZeroDivisionError] when y is 0</span>
+<span class="kw">def</span> g x, y
+  raise <span class="dt">ZeroDivisionError</span>.new <span class="kw">if</span> y == <span class="dv">0</span>
+  x / y
+<span class="kw">end</span></code></pre></div>
+</div>
+<div id="yardをインストールする" class="slide section level1">
+<h1>YARDをインストールする</h1>
+<p>Gemfileを用意してbundle install実行</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">source <span class="st">&#39;https://rubygems.org&#39;</span>
+
+gem <span class="st">&#39;yard&#39;</span></code></pre></div>
+<pre class="sh"><code>bundle install
+rbenv rehash # rbenv の人</code></pre>
+</div>
+<div id="yardをインストールする-1" class="slide section level1">
+<h1>YARDをインストールする</h1>
+<p>またはgemコマンドで直接インストール</p>
+<pre class="sh"><code>gem install yard --no-ri --no-rdocument
+rbenv rehash # rbenv の人</code></pre>
+</div>
+<div id="ドキュメントとなるhtmlを生成" class="slide section level1">
+<h1>ドキュメントとなるHTMLを生成</h1>
+<pre class="sh"><code>yard doc a.rb</code></pre>
+<p>これで <code>doc/index.html</code> やその他HTMLが生成される</p>
+</div>
+<div id="to-be-continued..." class="slide section level1">
+<h1>To be continued...</h1>
+</div>
+</body>
+</html>
+<!-- Pandoc version:
+pandoc 1.15.0.6
+Compiled with texmath 0.8.2, highlighting-kate 0.6.
+Syntax highlighting is supported for the following languages:
+    abc, actionscript, ada, agda, apache, asn1, asp, awk, bash, bibtex, boo, c,
+    changelog, clojure, cmake, coffee, coldfusion, commonlisp, cpp, cs, css,
+    curry, d, diff, djangotemplate, dockerfile, dot, doxygen, doxygenlua, dtd,
+    eiffel, email, erlang, fasm, fortran, fsharp, gcc, glsl, gnuassembler, go,
+    haskell, haxe, html, idris, ini, isocpp, java, javadoc, javascript, json,
+    jsp, julia, kotlin, latex, lex, lilypond, literatecurry, literatehaskell,
+    lua, m4, makefile, mandoc, markdown, mathematica, matlab, maxima, mediawiki,
+    metafont, mips, modelines, modula2, modula3, monobasic, nasm, noweb,
+    objectivec, objectivecpp, ocaml, octave, opencl, pascal, perl, php, pike,
+    postscript, prolog, pure, python, r, relaxng, relaxngcompact, rest, rhtml,
+    roff, ruby, rust, scala, scheme, sci, sed, sgml, sql, sqlmysql,
+    sqlpostgresql, tcl, tcsh, texinfo, verilog, vhdl, xml, xorg, xslt, xul,
+    yacc, yaml, zsh
+Default user data directory: <DELETED>
+Copyright (C) 2006-2015 John MacFarlane
+Web:  http://pandoc.org
+This is free software; see the source for copying conditions.
+There is no warranty, not even for merchantability or fitness
+for a particular purpose.
+-->

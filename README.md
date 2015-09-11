@@ -49,6 +49,16 @@ git config --global user.name yourname
 git config --global user.email youremail
 ```
 
+Gitのインストール
+
+```sh
+# RedHat系
+sudo yum -y install git
+
+# Debian系
+sudo apt-get -y install git
+```
+
 # gemプロジェクトの初期化
 
 ```sh
